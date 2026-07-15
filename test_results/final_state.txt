@@ -1,0 +1,2 @@
+NAME                                    IMAGE                                 COMMAND                  SERVICE   CREATED          STATUS                             PORTS
+ayushgithubcoder_calculator-backend-1   ayushgithubcoder_calculator-backend   "gunicorn --bind 0.0…"   backend   13 seconds ago   Up 11 seconds (health: starting)   0.0.0.0:5001->5000/tcp, [::]:5001->5000/tcp

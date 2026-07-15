@@ -1,0 +1,9 @@
+# Terraform variable values
+# Environment: dev
+
+environment = "dev"
+
+location = "centralus"
+
+calculator_api_node_version = "20-lts"
+subscription_id = "your-e848337bf0e5"

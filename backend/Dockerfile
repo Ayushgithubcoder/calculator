@@ -1,17 +1,31 @@
-FROM node:20-alpine AS base
+FROM python:3.11-slim
+
 WORKDIR /app
-RUN apk add --no-cache dumb-init
 
-FROM base AS deps
-COPY package*.json ./
-RUN npm ci --omit=dev
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-FROM base AS production
-ENV NODE_ENV=production
-COPY --from=deps /app/node_modules ./node_modules
-COPY package*.json ./
-COPY src ./src
-EXPOSE 3001
-USER node
-ENTRYPOINT ["dumb-init", "--"]
-CMD ["node", "src/server.js"]
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Install dependencies with specific pip version for compatibility
+RUN pip install --no-cache-dir pip==23.0.1 && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=development
+
+# Expose port
+EXPOSE 5000
+
+# Run the application with gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi:app"]

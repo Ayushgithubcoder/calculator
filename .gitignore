@@ -1,6 +1,63 @@
-node_modules
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build artifacts
+dist/
+build/
+coverage/
+*.tgz
+
+# Docker
+*.dockerignore
+
+# Environment files
 .env
-*.log
+.env.local
+.env.*.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# OS-specific files
 .DS_Store
-dist
-coverage
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Logs and runtime data
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Cache files
+.cache/
+.cache-loader/
+tmp/
+temp/
+__pycache__/
+!package.json
+!package-lock.json
+!requirements.txt
+!*.yml
+
+# InfrIQa generated manifest
+.infriqa/
+
+
+# OpenTofu / Terraform local files
+tofu/.terraform/
+tofu/*.tfstate
+tofu/*.tfstate.*
+tofu/tofu.tfvars
+tofu/terraform.tfvars
+tofu/crash.log
